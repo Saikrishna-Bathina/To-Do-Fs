@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1 align="center">Todo List</h1>
+
+    <% data.forEach((items) => { %>
+      <% if (editId === items._id.toString()) { %>
+        
+        <form action="/edit/<%= items._id %>" method="POST">
+          <div class="item">
+            <input type="text" name="updatedName" value="<%= items.name %>" required>
+          <button type="submit">Update</button>
+          </div>
+        </form>
+      <% } else { %>
+        
+        <form action="/delete" method="POST">
+          <div class="item">
+            <input type="checkbox" name="check" value="<%= items._id %>" onchange="this.form.submit()">
+            <span ><%= items.name %></span>
+            <a href="/edit/<%= items._id %>"><i class="fa-solid fa-edit"></i></a>
+          </div>
+        </form>
+      <% } %>
+    <% }) %>
+
+    
+    <form action="/" method="POST">
+      <input type="text" name="ele1" id="ele1" placeholder="Enter a task" required>
+      <button type="submit">+</button>
+    </form>
+  </div>
+</body>
+</html>
