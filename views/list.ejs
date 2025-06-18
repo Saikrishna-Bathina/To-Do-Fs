@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1, initial-scale=1.0" />
   <title>Todo List</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
   <div class="container">
@@ -13,28 +13,35 @@
 
     <% data.forEach((items) => { %>
       <% if (editId === items._id.toString()) { %>
-        
         <form action="/edit/<%= items._id %>" method="POST">
           <div class="item">
-            <input type="text" name="updatedName" value="<%= items.name %>" required>
-          <button type="submit">Update</button>
+            <input type="text" name="updatedName" value="<%= items.name %>" required />
+            <select name="updatedPriority" required>
+              <option value="Low" <%= items.priority === "Low" ? "selected" : "" %>>Low</option>
+              <option value="High" <%= items.priority === "High" ? "selected" : "" %>>High</option>
+              <option value="Urgent" <%= items.priority === "Urgent" ? "selected" : "" %>>Urgent</option>
+            </select>
+            <button type="submit">Update</button>
           </div>
         </form>
       <% } else { %>
-        
         <form action="/delete" method="POST">
           <div class="item">
-            <input type="checkbox" name="check" value="<%= items._id %>" onchange="this.form.submit()">
-            <span ><%= items.name %></span>
+            <input type="checkbox" name="check" value="<%= items._id %>" onchange="this.form.submit()" />
+            <span><%= items.name %> (<%= items.priority %>)</span>
             <a href="/edit/<%= items._id %>"><i class="fa-solid fa-edit"></i></a>
           </div>
         </form>
       <% } %>
     <% }) %>
 
-    
     <form action="/" method="POST">
-      <input type="text" name="ele1" id="ele1" placeholder="Enter a task" required>
+      <input type="text" name="ele1" id="ele1" placeholder="Enter a task" required />
+      <select name="priority" required>
+        <option value="Low">Low</option>
+        <option value="High">High</option>
+        <option value="Urgent">Urgent</option>
+      </select>
       <button type="submit">+</button>
     </form>
   </div>
